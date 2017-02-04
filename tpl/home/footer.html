@@ -1,0 +1,89 @@
+{config_load file='set.conf'}
+<footer data-am-widget="footer" class="am-footer am-footer-default am-hide-sm-only">
+  <div class="am-footer-miscs ">
+      <p>由 <a href="http://www.xsdhy.com/" title="消逝的红叶" target="_blank" class="">消逝的红叶</a>提供技术支持
+      </p><br>
+      <p>CopyRight©2015  {$smarty.config.site_name} Inc.</p>
+      <p><a href="http://www.miitbeian.gov.cn" target="_blank">{$smarty.config.site_icp}</a></p>
+  </div>
+</footer>
+</body>
+</html>
+<!--登陆窗体-->
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-login">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    <div class="am-modal-bd">
+      <form class="am-form"  action="index.php?c=index&m=login" method="post" id="loform" data-am-validator>
+      <input type="hidden" id="bh" name="bh" value="">
+      <fieldset>
+      <legend>投票登陆</legend>
+      <div class="am-form-group">
+        <input type="text" minlength="11" maxlength="11" placeholder="输入学号" tabindex="1" name="xh" required>
+      </div>
+      <div class="am-form-group">
+        <input type="password" placeholder="请输入教务密码" tabindex="2" name="password" required>
+      </div>
+      <div class="am-form-group">
+        <input type="text" name="code" placeholder="验证码" tabindex="3" minlength="4" maxlength="4" required/>
+      </div>
+      <div class="am-form-group">
+        <img id="codesrc" src="" onclick="ss()">&nbsp;<a href="#" onclick="ss()" class="am-btn am-btn-primary am-btn-xs">换一张</a>
+      </div>
+      <p><input type="submit" class="am-btn am-btn-success am-btn-block" value="登陆"></p>
+      <p>
+        请输入学号，密码为<a href="http://61.139.105.138/"  target="_blank">教务管理系统</a>密码
+        <br>
+        <span data-am-modal="{ target: '#mzsm', closeViaDimmer: 0}">免责申明</span>
+      </p>
+      </fieldset>
+    </form>
+    </div>
+  </div>
+</div>
+<!--登陆结束-->
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="mzsm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">免责申明
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    <div class="am-modal-bd">
+      本站仅用以上信息甄别用户实名信息与认证，不存在、也不会有任何保存用户密码的行为。
+    </div>
+  </div>
+</div>
+<script>
+function tpoption(oid){
+  if("{$uid}"=="0" || "{$uid}" == ""){
+     alert("请先登录！");
+     window.location.reload();
+     return
+  }
+  if("{$surplus_num|default:''}"=="0" || "{$surplus_num|default:''}" == ""){
+     alert("你没有票了");
+   return
+  }
+$('#tijiao'+oid).button('loading');
+$.post("index.php?c=index&m=tp",{ oid:oid},function(data){
+if(data.state==1){
+  $('#votes'+oid).html(data.votes);
+  $('#usersurplus_num').html(data.surplus_num);
+  $('#tp'+oid).html('<a class=\"am-btn am-btn-primary\" style=\"width:100%\">已投票</a>');
+  location.reload();
+}else if(data.state==2){
+  $('#tp'+oid).html('<a class=\"am-btn am-btn-primary\" style=\"width:100%\">你没有票了亲</a>');
+}else if(data.state==3){
+  $('#tp'+oid).html('<a class=\"am-btn am-btn-primary\" style=\"width:100%\">请勿重复投票</a>');
+}else{
+  $('#tijiao'+oid).button('reset');
+}
+} ,'json');
+  
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+{include file="tpl/admin/header.html"}
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">会员列表</strong></div>
+    </div>
+    <div class="am-g">
+      <div class="am-u-sm-12">
+          <table class="am-table am-table-striped am-table-hover table-main">
+            <thead>
+              <tr>
+                <th class="table-id">会员ID</th>
+                <th class="table-title">学号</th>
+                <th class="table-type">姓名</th>
+                <th class="table-author">学院</th>
+                <th class="table-date">专业</th>
+                <th class="table-date">班级</th>
+                <th class="table-date">余票</th>
+                <th class="table-set">操作</th>
+              </tr>
+          </thead>
+          <tbody>
+          {foreach item=u from=$user}
+            <tr>
+              <td>{$u.uid}</td>
+              <td>{$u.xh}</td>
+              <td>{$u.uname}</td>
+              <td>{$u.college}</td>
+              <td>{$u.specialty}</td>
+              <td>{$u.class}</td>
+              <td>{$u.surplus_num}</td>
+              <td>
+                <div class="am-btn-toolbar">
+                  <div class="am-btn-group am-btn-group-xs">
+                    <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="javascript:void(0);" onclick="order({$o.order_no})"><span class="am-icon-pencil-square-o"></span> 查看</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {/foreach}
+          </tbody>
+        </table>
+        <div class="am-cf">
+          <div class="am-fr">
+            <ul class="am-pagination">
+                {$page}
+            </ul>
+          </div>
+        </div>
+          <hr />
+          <p>注：.....</p>
+      </div>
+    </div>
+  </div>
+
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-order">
+  <div class="am-modal-dialog" style="-webkit-border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;border-radius:10px 10px 0 0;">
+    <div class="am-modal-hd" style="background:#0e90d2;-webkit-border-radius:10px 10px 0 0;-moz-border-radius:10px 10px 0 0;border-radius:10px 10px 0 0;">
+      <span id="no" style="color:white;padding: 10px 10px 5px;"></span>
+      <a href="javascript: void(0)" onclick="close_modal();" class="am-close am-close-spin" style="top:0px;right:16px;">&times;</a>
+    </div>
+    <div class="am-modal-bd">
+       <table id="order_good" class="am-table am-table-striped am-table-hover table-main" style="display:block;max-height:300px; overflow-y:scroll;">
+       </table>
+       <div id="loading" style="text-align:center;padding:20px 10px;"><i class="am-icon-spinner am-icon-spin"></i></div>
+    </div>
+  </div>
+</div>
+<script>
+function order(order_no){
+   $('#order_good').html('');
+   $('#loading').show();
+   $('#no').html("单号："+order_no);
+   $('#doc-modal-order').modal('open');
+   $.get("admin.php?c=order&m=getorder", { "order_no": order_no },
+     function(data){
+    var str='<thead><tr><th style="padding:6px;text-align:center;" width="60%" class="table-title">名称</th><th style="padding:6px;text-align:center;" width="22%" class="table-title">价格</th><th style="padding:6px;text-align:center;" class="table-title">数量</th></tr></thead><tbody >';
+    for(var i=0;i<data.length;i++){
+      str+='<tr><td width="60%">'+data[i].name+'</td><td>'+data[i].price+'</a></td><td>'+data[i].num+'</td></tr>'; 
+    }
+    str+='</tbody>';
+    setTimeout(function(){
+    $('#loading').hide();
+        $('#order_good').html(str);
+        },500); 
+   }, "json");    
+}
+function close_modal(){
+    $('#order_good').html('');
+    $('#doc-modal-order').modal('close');
+}
+</script>
+{include file="tpl/admin/footer.html"}

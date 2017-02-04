@@ -1,0 +1,40 @@
+{include file="tpl/home/header.html" pagetitle=$name}
+<div class="am-g">
+{include file="tpl/home/gwc.html"}
+  <div class="am-u-md-8 am-g-fixed">
+    <div class="am-u-md-12">
+      <div class="am-u-lg-5">
+        <p><img src="./public/uploads/voteoption/{$img}" id="img_{$gid}" width="100%" style="box-shadow: 0px 0px 8px #429842;"/></p>
+      </div>
+      <div class="am-u-lg-5">
+        <h5><a href="#">{$name}</a></h5>
+        <hr>
+        <h3>班级简介:</h3>{$sinfor}
+        <hr>
+        <h3>当前票数:<span style="color:red;">{$votes}</span></h3>
+        <hr>
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友">QQ好友</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧">百度贴吧</a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址">复制网址</a></div>
+
+        <br>
+        <div>
+          <div class="am-u-sm-6">
+            <span id="tp{$oid}">
+              <a id="tijiao{$oid}" href="javascript:void(0);" class="am-btn am-btn-primary" onclick="tpoption('{$oid}');" style="width:100%" data-am-loading="{ loadingText: '努力提交中...', resetText: '投票我一票'}">投票我一票</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="am-u-lg-12">
+    <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default" style="margin:0; margin-bottom:10px; margin-top:20px;">
+      <h2 class="am-titlebar-title" style="border-bottom:solid #0e90d2 1px; width:100%;">图文详情</h2>
+    </div>
+    </div>
+    <div class="am-u-lg-12">
+        {$infor}
+    </div>
+  </div>
+{include file="tpl/home/cate.html"}
+</div>
+<script>window._bd_share_config={ "common":{ "bdSnsKey":{ },"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","bdysc","weixin","renren","tqq","bdxc","tqf","douban","bdhome","sqq","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{ "bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+{include file="tpl/home/footer.html"}

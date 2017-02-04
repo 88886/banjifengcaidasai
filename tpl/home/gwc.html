@@ -1,0 +1,84 @@
+{config_load file='set.conf'}
+<!--侧边栏-->
+<div class="am-u-md-2 am-hide-sm-only">
+  <div class="am-panel-group" data-am-sticky="{ top:50}" style="box-shadow: rgb(66, 152, 66) 0px 0px 5px;">
+    {if $smarty.config.site_notice neq ""}
+    <section class="am-panel am-panel-default">
+      <div class="am-panel-hd">公告</div>
+      <div class="am-panel-bd">
+        <p>{$smarty.config.site_notice}</p>
+      </div>
+    </section>
+    {/if}
+    {if $uid neq ""}
+    <section class="am-panel am-panel-default">
+      <div class="am-panel-hd">用户信息</div>
+      <div class="am-panel-bd">
+        <p>欢迎你：{$uname}</p>
+        <p>班级：{$class}</p>
+        <p>剩余票数:<span id="usersurplus_num" style="color:red;">{$surplus_num}</span></p>
+      </div>
+      <div class="am-panel-hd">已投列表</div>
+      <ul class="am-list">
+      {if $votedata neq ""}
+      {foreach item=d from=$votedata}
+        <li>班级:{$d.name}<br>时间:{$d.time|date_format:"%Y-%m-%e,%H:%M:%S"}</li>
+      {/foreach}
+      {else}
+      你还没有投票哦
+      {/if}
+      </ul>
+    </section>
+    {else}
+    <section class="am-panel am-panel-default">
+      <div class="am-panel-hd">用户信息</div>
+      <div class="am-panel-bd">
+        <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm"  data-am-modal="{ target:'#doc-modal-login' }"><span class="am-icon-user"></span> 登录</button>
+      </div>
+    </section>
+    {/if}
+  </div>
+</div>
+<!--侧边栏-->
+
+<!--侧边栏-->
+<div class="am-u-md-2 am-hide-lg-only">
+  <div class="am-panel-group">
+    {if $smarty.config.site_notice neq ""}
+    <section class="am-panel am-panel-default">
+      <div class="am-panel-hd">公告</div>
+      <div class="am-panel-bd">
+        <p>{$smarty.config.site_notice}</p>
+      </div>
+    </section>
+    {/if}
+    {if $uid neq ""}
+    <section class="am-panel am-panel-default">
+      <div class="am-panel-hd">用户信息</div>
+      <div class="am-panel-bd">
+        <p>
+        欢迎你：{$uname}<br>
+        班级：{$class}<br>
+        剩余票数:<span id="usersurplus_num" style="color:red;">{$surplus_num}</span></p>
+        <div class="am-panel-hd">已投列表</div>
+        <ul class="am-list">
+        {if $votedata neq ""}
+        {foreach item=d from=$votedata}
+          <li>班级:{$d.name}<br>时间:{$d.time|date_format:"%Y-%m-%e,%H:%M:%S"}</li>
+        {/foreach}
+        {else}
+        你还没有投票哦
+        {/if}
+        </ul>
+    </section>
+    {else}
+    <section class="am-panel am-panel-default">
+      <div class="am-panel-hd">用户信息</div>
+      <div class="am-panel-bd">
+        <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm"  data-am-modal="{ target:'#doc-modal-login' }"><span class="am-icon-user"></span> 登录</button>
+      </div>
+    </section>
+    {/if}
+  </div>
+</div>
+<!--侧边栏-->

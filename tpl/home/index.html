@@ -1,0 +1,41 @@
+{include file="tpl/home/header.html" pagetitle='首页'}
+<div class="am-g">
+{include file="tpl/home/gwc.html"}
+
+<div class="am-u-md-8 am-g-fixed">
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-bordered"> 
+{if $option neq ""}
+{foreach item=o from=$option}
+<li> 
+  <div class="am-gallery-item good_infor">
+    <a href="index.php?c=index&m=option&oid={$o.oid}">
+    <div class="good_img">
+      <img src="./public/uploads/voteoption/{$o.img}" alt="{$o.name}" id="img_{$o.img}"/>
+    </div>
+    </a>
+    <div class="am-gallery-desc">
+      <div style="padding:0 10px;">
+        <h3 class="am-gallery-title"><strong>{$o.name}</strong></h3>
+        <div style="overflow:hidden;margin-bottom:10px;">
+          <span class="am-u-sm-7" style="padding:0; text-align:right;padding-right:10px;">
+          <span style="font-size:12px; color:#888888;">票数:&nbsp;&nbsp;</span>
+          <span id="votes{$o.oid}">{$o.votes}</span>
+          </span>
+        </div>
+      </div>
+      <span id="tp{$o.oid}">
+      <a id="tijiao{$o.oid}" href="javascript:void(0);" class="am-btn am-btn-primary" onclick="tpoption('{$o.oid}');" style="width:100%" data-am-loading="{ loadingText: '努力提交中...', resetText: '投票我一票'}">投票我一票</a>
+    </span>
+    </div>
+  </div>
+</li>
+{/foreach}
+{else}
+还没有商品哦
+{/if}
+</ul>
+{$page}
+</div>
+{include file="tpl/home/cate.html"}
+</div>
+{include file="tpl/home/footer.html"}

@@ -1,0 +1,71 @@
+{include file="tpl/admin/header.html"}
+<div class="admin-content">
+  <div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">班级列表</strong></div>
+  </div>
+  <div class="am-g">
+    <div class="am-u-sm-12 am-u-md-6">
+      <div class="am-btn-toolbar">
+        <div class="am-btn-group am-btn-group-xs">
+          <a type="button" class="am-btn am-btn-default" href="admin.php?c=good&m=addgood"><span class="am-icon-plus"></span> 新增</a>
+        </div>
+      </div>
+    </div>
+    <div class="am-u-sm-12 am-u-md-3">
+      <div class="am-form-group">
+        <select onchange="self.location.href=options[selectedIndex].value">
+          <option value="admin.php?c=good&m=index">全部班级</option>
+          {foreach item=c from=$cate}
+          <option value="admin.php?c=good&m=index&cid={$c.cid}">{$c.name}</option>
+          {/foreach}
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="am-g">
+    <div class="am-u-sm-12">
+        <table class="am-table am-table-striped am-table-hover table-main">
+          <thead>
+            <tr>
+              <th class="table-id">图片</th>
+              <th class="table-title">名称</th>
+              <th class="table-type">票数</th>
+              <th class="table-author am-hide-sm-only">分类</th>
+              <th class="table-date am-hide-sm-only">简介</th>
+              <th class="table-set">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach item=g from=$good}
+          <tr>
+            <td><img src="./public/uploads/voteoption/{$g.img}" width="100px" height="100px"/></td>
+            <td>{$g.name}</td>
+            <td>{$g.votes}</td>
+            <td class="am-hide-sm-only">{$g.cid}</td>
+            <td class="am-hide-sm-only">{$g.sinfor}</td>
+            <td>
+              <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                  <a class="am-btn am-btn-default am-btn-xs am-text-secondary" href="admin.php?c=good&m=editgood&oid={$g.oid}"><span class="am-icon-pencil-square-o"></span> 编辑</a>
+                  <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" href="index.php?c=index&m=option&oid={$g.oid}" target="_blank"><span class="am-icon-eye"></span> 查看</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {/foreach}
+        </tbody>
+      </table>
+
+      <div class="am-cf">
+        <div class="am-fr">
+          <ul class="am-pagination">
+              {$page}
+          </ul>
+        </div>
+      </div>
+        <hr />
+        <p>注：.....</p>
+    </div>
+  </div>
+</div>
+{include file="tpl/admin/footer.html"}
